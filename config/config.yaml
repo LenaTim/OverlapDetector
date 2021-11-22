@@ -1,0 +1,47 @@
+audio:
+  type: 'stft'
+  mfcc: 
+    n_mfcc: 40
+  stft:
+    n_fft: 400
+    num_freq: 201
+    hop_length: 160
+  melspec:
+    n_mfcc: 80
+    fmax: 8000
+  sr: 16000
+  min_level_db: -100.0
+  ref_level_db: 20.0
+---
+data:
+  data_dir: './data/AMI/amicorpus/'
+  label_dir: './labels/'
+  output_dir: './rttms/'
+  wav: '.wav'
+  label: '.rttm'
+  audio_len: 2
+---
+set: 
+  train: './labels/train.lst'
+  dev: './labels/development.lst'
+  test: './labels/test.lst'
+  all: './labels/all.lst'/
+---
+train:
+  epoch: 50
+  batch_size: 128
+  num_workers: 8
+  optimizer: 'adam'
+  adam: 0.001
+  summary_interval: 1
+  checkpoint_interval: 50
+---
+log:
+  chkpt_dir: 'chkpt'
+  log_dir: 'logs'
+---
+model:
+  lstm_input: 1600
+  lstm_dim: 40
+  lstm_output: 525
+  fc_dim: 2
